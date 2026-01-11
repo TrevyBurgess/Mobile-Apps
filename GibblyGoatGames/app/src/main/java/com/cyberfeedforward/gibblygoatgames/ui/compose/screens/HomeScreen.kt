@@ -18,6 +18,6 @@ fun HomeScreen(
         .fillMaxSize()
         .verticalScroll(scrollState)
     ) {
-        Background()
+        //Background()
     }
 }

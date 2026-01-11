@@ -17,7 +17,8 @@ import com.cyberfeedforward.gibblygoatgames.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppBarTop(
-    shareActivity: () -> Unit
+    shareActivity: () -> Unit,
+
 ) {
     // Share - Partager
     val navShare = stringResource(R.string.nav_share_game)

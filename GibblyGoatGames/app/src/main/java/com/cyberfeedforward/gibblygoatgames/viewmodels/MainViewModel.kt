@@ -12,6 +12,8 @@ class MainViewModel : ViewModel() {
         Log.i(TAG, "MainViewModel created")
     }
 
+    var quantity: Int = 2
+
     fun shareActivity(context: Context, shareMessage: Int) {
         Log.i(TAG, "shareActivity")
 

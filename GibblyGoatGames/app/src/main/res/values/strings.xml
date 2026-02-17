@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">Gibbly Goat Games</string>
-    <string name="nav_home">Home</string>
-    <string name="nav_games">Games</string>
-    <string name="nav_share_game">Share</string>
-    <string name="share_message">Gibbly Goat Games, for all your gibbly needs</string>
-</resources>

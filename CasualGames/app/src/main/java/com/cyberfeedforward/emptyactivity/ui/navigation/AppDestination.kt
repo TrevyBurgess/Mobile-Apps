@@ -14,12 +14,12 @@ sealed class AppDestination(
         label = "Games"
     )
 
-    data object Profile : AppDestination(
-        route = "profile",
-        label = "Profile"
+    data object Settings : AppDestination(
+        route = "settings",
+        label = "Settings"
     )
 
     companion object {
-        val bottomNavDestinations: List<AppDestination> = listOf(Home, Games, Profile)
+        val bottomNavDestinations: List<AppDestination> = listOf(Home, Games, Settings)
     }
 }

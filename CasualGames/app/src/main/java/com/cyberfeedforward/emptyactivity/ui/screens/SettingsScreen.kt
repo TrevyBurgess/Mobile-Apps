@@ -10,11 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.cyberfeedforward.emptyactivity.ui.state.ProfileUiState
+import com.cyberfeedforward.emptyactivity.ui.state.SettingsUiState
 
 @Composable
-fun ProfileScreen(
-    uiState: ProfileUiState,
+fun SettingsScreen(
+    uiState: SettingsUiState,
     modifier: Modifier = Modifier
 ) {
     Column(

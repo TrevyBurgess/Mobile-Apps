@@ -3,6 +3,10 @@ package com.cyberfeedforward.emptyactivity.ui
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -10,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -22,10 +27,11 @@ import androidx.navigation.compose.rememberNavController
 import com.cyberfeedforward.emptyactivity.ui.navigation.AppDestination
 import com.cyberfeedforward.emptyactivity.ui.screens.GamesScreen
 import com.cyberfeedforward.emptyactivity.ui.screens.HomeScreen
-import com.cyberfeedforward.emptyactivity.ui.screens.ProfileScreen
+import com.cyberfeedforward.emptyactivity.ui.screens.SettingsScreen
+import com.cyberfeedforward.emptyactivity.ui.theme.EmptyActivityTheme
 import com.cyberfeedforward.emptyactivity.ui.viewmodel.GamesViewModel
 import com.cyberfeedforward.emptyactivity.ui.viewmodel.HomeViewModel
-import com.cyberfeedforward.emptyactivity.ui.viewmodel.ProfileViewModel
+import com.cyberfeedforward.emptyactivity.ui.viewmodel.SettingsViewModel
 
 @Composable
 fun AppRoot(modifier: Modifier = Modifier) {
@@ -54,7 +60,21 @@ fun AppRoot(modifier: Modifier = Modifier) {
                             }
                         },
                         label = { Text(text = destination.label) },
-                        icon = {}
+                        icon = {
+                            when (destination) {
+                                AppDestination.Home -> Icon(
+                                    imageVector = Icons.Outlined.Home,
+                                    contentDescription = destination.label
+                                )
+
+                                AppDestination.Settings -> Icon(
+                                    imageVector = Icons.Outlined.Settings,
+                                    contentDescription = destination.label
+                                )
+
+                                else -> Unit
+                            }
+                        }
                     )
                 }
             }
@@ -85,8 +105,8 @@ private fun AppNavHost(
         composable(AppDestination.Games.route) {
             GamesRoute()
         }
-        composable(AppDestination.Profile.route) {
-            ProfileRoute()
+        composable(AppDestination.Settings.route) {
+            SettingsRoute()
         }
     }
 }
@@ -108,9 +128,17 @@ private fun GamesRoute(viewModel: GamesViewModel = viewModel()) {
 }
 
 @Composable
-private fun ProfileRoute(viewModel: ProfileViewModel = viewModel()) {
+private fun SettingsRoute(viewModel: SettingsViewModel = viewModel()) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    ProfileScreen(
+    SettingsScreen(
         uiState = uiState
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun AppRootPreview() {
+    EmptyActivityTheme {
+        AppRoot()
+    }
 }

@@ -14,6 +14,11 @@ sealed class AppDestination(
         label = "Games"
     )
 
+    data object Sudoku : AppDestination(
+        route = "games/sudoku",
+        label = "Sudoku"
+    )
+
     data object Settings : AppDestination(
         route = "settings",
         label = "Settings"

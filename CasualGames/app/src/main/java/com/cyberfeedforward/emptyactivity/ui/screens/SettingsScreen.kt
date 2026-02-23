@@ -9,7 +9,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.cyberfeedforward.emptyactivity.R
 import com.cyberfeedforward.emptyactivity.ui.state.SettingsUiState
 
 @Composable
@@ -25,16 +27,16 @@ fun SettingsScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = uiState.username,
+            text = stringResource(uiState.usernameRes),
             style = MaterialTheme.typography.headlineMedium
         )
         Text(
-            text = "Level ${uiState.level}",
+            text = stringResource(R.string.settings_level, uiState.level),
             modifier = Modifier.padding(top = 12.dp),
             style = MaterialTheme.typography.bodyLarge
         )
         Text(
-            text = uiState.status,
+            text = stringResource(uiState.statusRes),
             modifier = Modifier.padding(top = 8.dp),
             style = MaterialTheme.typography.bodyMedium
         )

@@ -9,7 +9,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.cyberfeedforward.emptyactivity.R
 import com.cyberfeedforward.emptyactivity.ui.state.GamesUiState
 
 @Composable
@@ -25,16 +27,16 @@ fun GamesScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = uiState.title,
+            text = stringResource(uiState.titleRes),
             style = MaterialTheme.typography.headlineMedium
         )
         Text(
-            text = "Available games: ${uiState.gameCount}",
+            text = stringResource(R.string.games_available_count, uiState.gameCount),
             modifier = Modifier.padding(top = 12.dp),
             style = MaterialTheme.typography.bodyLarge
         )
         Text(
-            text = uiState.description,
+            text = stringResource(uiState.descriptionRes),
             modifier = Modifier.padding(top = 8.dp),
             style = MaterialTheme.typography.bodyMedium
         )

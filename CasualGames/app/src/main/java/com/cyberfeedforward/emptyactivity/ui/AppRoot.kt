@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -62,22 +63,22 @@ fun AppRoot(modifier: Modifier = Modifier) {
                                 restoreState = true
                             }
                         },
-                        label = { Text(text = destination.label) },
+                        label = { Text(text = stringResource(destination.labelRes)) },
                         icon = {
                             when (destination) {
                                 AppDestination.Home -> Icon(
                                     imageVector = Icons.Outlined.Home,
-                                    contentDescription = destination.label
+                                    contentDescription = stringResource(destination.labelRes)
                                 )
 
                                 AppDestination.Games -> Icon(
                                     imageVector = Icons.Outlined.SportsEsports,
-                                    contentDescription = destination.label
+                                    contentDescription = stringResource(destination.labelRes)
                                 )
 
                                 AppDestination.Settings -> Icon(
                                     imageVector = Icons.Outlined.Settings,
-                                    contentDescription = destination.label
+                                    contentDescription = stringResource(destination.labelRes)
                                 )
 
                                 else -> {}
@@ -116,7 +117,9 @@ private fun AppNavHost(
             })
         }
         composable(AppDestination.Sudoku.route) {
-            SudokuRoute()
+            SudokuRoute(onBackToGames = {
+                navController.popBackStack()
+            })
         }
         composable(AppDestination.Settings.route) {
             SettingsRoute()
@@ -141,7 +144,10 @@ private fun GamesRoute(onOpenSudoku: () -> Unit) {
 }
 
 @Composable
-private fun SudokuRoute(viewModel: SudokuViewModel = viewModel()) {
+private fun SudokuRoute(
+    onBackToGames: () -> Unit,
+    viewModel: SudokuViewModel = viewModel()
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     SudokuPage(
         board = uiState.board,
@@ -151,6 +157,9 @@ private fun SudokuRoute(viewModel: SudokuViewModel = viewModel()) {
         onCellSelected = viewModel::selectCell,
         onNumberInput = viewModel::inputNumber,
         onClearSelected = viewModel::clearSelected,
+        onBackToGames = onBackToGames,
+        onNewGame = viewModel::startNewGame,
+        onRestartGame = viewModel::restartCurrentGame,
         modifier = Modifier.padding(16.dp)
     )
 }

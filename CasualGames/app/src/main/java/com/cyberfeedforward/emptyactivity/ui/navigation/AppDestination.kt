@@ -1,27 +1,30 @@
 package com.cyberfeedforward.emptyactivity.ui.navigation
 
+import androidx.annotation.StringRes
+import com.cyberfeedforward.emptyactivity.R
+
 sealed class AppDestination(
     val route: String,
-    val label: String
+    @StringRes val labelRes: Int
 ) {
     data object Home : AppDestination(
         route = "home",
-        label = "Home"
+        labelRes = R.string.nav_home
     )
 
     data object Games : AppDestination(
         route = "games",
-        label = "Games"
+        labelRes = R.string.nav_games
     )
 
     data object Sudoku : AppDestination(
         route = "games/sudoku",
-        label = "Sudoku"
+        labelRes = R.string.sudoku_title
     )
 
     data object Settings : AppDestination(
         route = "settings",
-        label = "Settings"
+        labelRes = R.string.nav_settings
     )
 
     companion object {

@@ -6,10 +6,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlin.random.Random
 
 class SudokuViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(SudokuUiState())
     val uiState: StateFlow<SudokuUiState> = _uiState.asStateFlow()
+    private var currentSeedBoard: List<Int?> = SudokuUiState.initialBoard
 
     fun selectCell(index: Int) {
         _uiState.update { it.copy(selectedIndex = index) }
@@ -46,6 +48,21 @@ class SudokuViewModel : ViewModel() {
                 isComplete = false
             )
         }
+    }
+
+    fun startNewGame() {
+        val candidates = SudokuUiState.seedBoards.filter { it != currentSeedBoard }
+        val nextSeedBoard = if (candidates.isNotEmpty()) {
+            candidates.random(Random)
+        } else {
+            SudokuUiState.seedBoards.random(Random)
+        }
+        currentSeedBoard = nextSeedBoard
+        _uiState.value = SudokuUiState.fromSeed(nextSeedBoard)
+    }
+
+    fun restartCurrentGame() {
+        _uiState.value = SudokuUiState.fromSeed(currentSeedBoard)
     }
 
     private fun isBoardFilled(board: List<Int?>): Boolean = board.none { it == null }

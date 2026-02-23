@@ -10,7 +10,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.cyberfeedforward.emptyactivity.R
 
 @Composable
 fun GamesHubPage(
@@ -25,11 +27,11 @@ fun GamesHubPage(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Games",
+            text = stringResource(R.string.games_hub_title),
             style = MaterialTheme.typography.headlineMedium
         )
         Text(
-            text = "Choose a game page.",
+            text = stringResource(R.string.games_hub_message),
             modifier = Modifier.padding(top = 8.dp),
             style = MaterialTheme.typography.bodyLarge
         )
@@ -37,7 +39,7 @@ fun GamesHubPage(
             onClick = onSudokuClick,
             modifier = Modifier.padding(top = 20.dp)
         ) {
-            Text(text = "Play Sudoku")
+            Text(text = stringResource(R.string.play_sudoku))
         }
     }
 }

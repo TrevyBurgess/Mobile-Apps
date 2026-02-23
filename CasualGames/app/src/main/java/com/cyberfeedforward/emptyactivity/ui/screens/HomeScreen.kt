@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.cyberfeedforward.emptyactivity.ui.state.HomeUiState
@@ -26,11 +27,11 @@ fun HomeScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = uiState.title,
+            text = stringResource(uiState.titleRes),
             style = MaterialTheme.typography.headlineMedium
         )
         Text(
-            text = uiState.message,
+            text = stringResource(uiState.messageRes),
             modifier = Modifier.padding(top = 12.dp),
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center

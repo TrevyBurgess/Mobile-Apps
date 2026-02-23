@@ -1,7 +1,10 @@
 package com.cyberfeedforward.emptyactivity.ui.state
 
+import androidx.annotation.StringRes
+import com.cyberfeedforward.emptyactivity.R
+
 data class GamesUiState(
-    val title: String = "Games",
+    @StringRes val titleRes: Int = R.string.games_hub_title,
     val gameCount: Int = 3,
-    val description: String = "You can expand this list from a repository later."
+    @StringRes val descriptionRes: Int = R.string.games_description
 )

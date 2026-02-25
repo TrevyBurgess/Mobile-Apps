@@ -32,26 +32,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.em
 import com.cyberfeedforward.emptyactivity.R
 import com.cyberfeedforward.emptyactivity.ui.state.MiniSudokuDifficulty
-import com.cyberfeedforward.emptyactivity.ui.state.SudokuDifficulty
-import com.cyberfeedforward.emptyactivity.ui.state.SudokuUiState
+import com.cyberfeedforward.emptyactivity.ui.state.MiniSudokuUiState
 import com.cyberfeedforward.emptyactivity.ui.theme.EmptyActivityTheme
 
 @Composable
-fun SudokuPage(
+fun MiniSudokuPage(
     board: List<Int?>,
     givenCells: Set<Int>,
     selectedIndex: Int?,
     isComplete: Boolean,
-    difficulty: SudokuDifficulty,
+    difficulty: MiniSudokuDifficulty,
     onCellSelected: (Int) -> Unit,
     onNumberInput: (Int) -> Unit,
-    onClearSelected: () -> Unit,
     onUndoMove: () -> Unit,
     onToggleDifficulty: () -> Unit,
-    onHelpClick: () -> Unit,
     onBackToGames: () -> Unit,
     onNewGame: () -> Unit,
     onRestartGame: () -> Unit,
@@ -61,25 +57,26 @@ fun SudokuPage(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val difficultyTesy =  if (difficulty == SudokuDifficulty.Easy) {
-            stringResource(R.string.sudoku_difficulty_easy)
+        val difficultyTesy = if (difficulty == MiniSudokuDifficulty.Easy) {
+            stringResource(R.string.mini_sudoku_difficulty_easy)
         } else {
-            stringResource(R.string.sudoku_difficulty_hard)
+            stringResource(R.string.mini_sudoku_difficulty_hard)
         }
 
         Row(
-            modifier = Modifier
-                .padding(top = 12.dp),
-                verticalAlignment = Alignment.CenterVertically
+            modifier = Modifier.padding(top = 12.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = stringResource(R.string.sudoku_title) + " - " + difficultyTesy,
+
+            Text(
+                text = stringResource(R.string.mini_sudoku_title) + " - " + difficultyTesy,
                 style = MaterialTheme.typography.headlineMedium,
                 modifier = Modifier.padding(20.dp),
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.primary)
+                color = MaterialTheme.colorScheme.primary
+            )
 
-            Button(onClick = onBackToGames,
-                modifier = Modifier.padding(start = 20.dp)) {
+            Button(onClick = onBackToGames) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
                     contentDescription = stringResource(R.string.back_to_games)
@@ -87,7 +84,7 @@ fun SudokuPage(
             }
         }
 
-        SudokuGrid(
+        MiniSudokuGrid(
             board = board,
             givenCells = givenCells,
             selectedIndex = selectedIndex,
@@ -95,38 +92,24 @@ fun SudokuPage(
         )
 
         Row(
-            modifier = Modifier
-                .padding(top = 12.dp),
+            modifier = Modifier.padding(top = 12.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Button(onClick = onToggleDifficulty) {
                 Text(
-                    text = if (difficulty == SudokuDifficulty.Easy) {
-                        stringResource(R.string.sudoku_difficulty_hard)
+                    text = if (difficulty == MiniSudokuDifficulty.Easy) {
+                        stringResource(R.string.mini_sudoku_difficulty_hard)
                     } else {
-                        stringResource(R.string.sudoku_difficulty_easy)
+                        stringResource(R.string.mini_sudoku_difficulty_easy)
                     }
                 )
             }
 
-            Button(
-                onClick = onNewGame
-            ) {
-                Box (
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Add,
-                        contentDescription = stringResource(R.string.new_game),
-                        //modifier = Modifier.padding(bottom = 12.dp),
-                    )
-
-//                    Text(
-//                        text = stringResource(R.string.new_game),
-//                        modifier = Modifier.padding(top = 12.dp),
-//                        fontSize = 3.em
-//                    )
-                }
+            Button(onClick = onNewGame) {
+                Icon(
+                    imageVector = Icons.Outlined.Add,
+                    contentDescription = stringResource(R.string.new_game)
+                )
             }
 
             Button(onClick = onUndoMove) {
@@ -134,10 +117,6 @@ fun SudokuPage(
                     imageVector = Icons.AutoMirrored.Outlined.Undo,
                     contentDescription = stringResource(R.string.undo_move)
                 )
-//                Text(
-//                    text = stringResource(R.string.undo_move),
-//                    modifier = Modifier.padding(start = 6.dp)
-//                )
             }
 
             Button(onClick = onRestartGame) {
@@ -145,56 +124,14 @@ fun SudokuPage(
                     imageVector = Icons.Outlined.RestartAlt,
                     contentDescription = stringResource(R.string.restart_game)
                 )
-//                Text(
-//                    text = stringResource(R.string.restart_game),
-//                    modifier = Modifier.padding(start = 6.dp)
-//                )
             }
-
-//            Button(
-//                onClick = onClearSelected,
-//            ) {
-//                Icon(
-//                    imageVector = Icons.AutoMirrored.Outlined.Backspace,
-//                    contentDescription = stringResource(R.string.erase)
-//                )
-////                Text(
-////                    text = stringResource(R.string.erase),
-////                    modifier = Modifier.padding(start = 6.dp)
-////                )
-//            }
         }
 
-        NumberPad(
-            onNumberInput = onNumberInput
-        )
-
-        Row(
-            modifier = Modifier.padding(top = 12.dp, bottom = 12.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-//            Button(onClick = onHelpClick) {
-//                Icon(
-//                    imageVector = Icons.AutoMirrored.Outlined.HelpOutline,
-//                    contentDescription = stringResource(R.string.help)
-//                )
-//            }
-
-//            Button(onClick = onBackToGames) {
-//                Icon(
-//                    imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-//                    contentDescription = stringResource(R.string.back_to_games)
-//                )
-////                Text(
-////                    text = stringResource(R.string.back_to_games),
-////                    modifier = Modifier.padding(start = 6.dp)
-////                )
-//            }
-        }
+        MiniNumberPad(onNumberInput = onNumberInput)
 
         if (isComplete) {
             Text(
-                text = stringResource(R.string.sudoku_solved),
+                text = stringResource(R.string.mini_sudoku_solved),
                 modifier = Modifier.padding(top = 12.dp),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.primary,
@@ -206,43 +143,29 @@ fun SudokuPage(
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun NumberPad(onNumberInput: (Int) -> Unit) {
+private fun MiniNumberPad(onNumberInput: (Int) -> Unit) {
     FlowRow(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
         verticalArrangement = Arrangement.spacedBy(8.dp),
-        maxItemsInEachRow = 5
+        maxItemsInEachRow = 4
     ) {
-        (1..9).forEach { number ->
+        (1..4).forEach { number ->
             Button(
                 onClick = { onNumberInput(number) },
                 shape = MaterialTheme.shapes.small,
-                modifier = Modifier.size(60.dp),
+                modifier = Modifier.size(64.dp)
             ) {
-                Column {
-                    Text(
-                        text = number.toString(),
-                        textAlign = androidx.compose.ui.text.style.TextAlign.Center,
-                        fontSize = 6.em,
-                        modifier = Modifier.padding(0.dp)
-                    )
-
-//                    Text(
-//                        text = number.toString(),
-//                        textAlign = androidx.compose.ui.text.style.TextAlign.Center,
-//                        fontSize = 4.em,
-//                        modifier = Modifier.padding(0.dp)
-//                    )
-                }
+                Text(text = number.toString(), style = MaterialTheme.typography.headlineSmall)
             }
         }
     }
 }
 
 @Composable
-private fun SudokuGrid(
+private fun MiniSudokuGrid(
     board: List<Int?>,
     givenCells: Set<Int>,
     selectedIndex: Int?,
@@ -250,36 +173,32 @@ private fun SudokuGrid(
 ) {
     val heavyLineColor = Color.Black
     val heavyLineWidth = 3.dp
-    val selectedRow = selectedIndex?.div(9)
-    val selectedCol = selectedIndex?.rem(9)
-    val selectedSubgridRow = selectedRow?.div(3)
-    val selectedSubgridCol = selectedCol?.div(3)
+    val selectedRow = selectedIndex?.div(4)
+    val selectedCol = selectedIndex?.rem(4)
+    val selectedSubgridRow = selectedRow?.div(2)
+    val selectedSubgridCol = selectedCol?.div(2)
 
     Box(
         modifier = Modifier.drawWithContent {
             drawContent()
 
             val strokeWidth = heavyLineWidth.toPx()
-            val oneThirdWidth = size.width / 3f
-            val oneThirdHeight = size.height / 3f
+            val halfWidth = size.width / 2f
+            val halfHeight = size.height / 2f
 
-            for (i in 1..2) {
-                val x = oneThirdWidth * i
-                drawLine(
-                    color = heavyLineColor,
-                    start = Offset(x, 0f),
-                    end = Offset(x, size.height),
-                    strokeWidth = strokeWidth
-                )
+            drawLine(
+                color = heavyLineColor,
+                start = Offset(halfWidth, 0f),
+                end = Offset(halfWidth, size.height),
+                strokeWidth = strokeWidth
+            )
 
-                val y = oneThirdHeight * i
-                drawLine(
-                    color = heavyLineColor,
-                    start = Offset(0f, y),
-                    end = Offset(size.width, y),
-                    strokeWidth = strokeWidth
-                )
-            }
+            drawLine(
+                color = heavyLineColor,
+                start = Offset(0f, halfHeight),
+                end = Offset(size.width, halfHeight),
+                strokeWidth = strokeWidth
+            )
 
             drawRect(
                 color = heavyLineColor,
@@ -288,16 +207,16 @@ private fun SudokuGrid(
         }
     ) {
         Column {
-            for (row in 0 until 9) {
+            for (row in 0 until 4) {
                 Row {
-                    for (col in 0 until 9) {
-                        val index = row * 9 + col
+                    for (col in 0 until 4) {
+                        val index = row * 4 + col
                         val isRowMatch = selectedRow == row
                         val isColMatch = selectedCol == col
                         val isSubgridMatch =
-                            selectedSubgridRow == row / 3 && selectedSubgridCol == col / 3
+                            selectedSubgridRow == row / 2 && selectedSubgridCol == col / 2
 
-                        SudokuCell(
+                        MiniSudokuCell(
                             value = board[index],
                             isGiven = givenCells.contains(index),
                             isSelected = selectedIndex == index,
@@ -313,7 +232,7 @@ private fun SudokuGrid(
 }
 
 @Composable
-private fun SudokuCell(
+private fun MiniSudokuCell(
     value: Int?,
     isGiven: Boolean,
     isSelected: Boolean,
@@ -336,20 +255,9 @@ private fun SudokuCell(
         MaterialTheme.colorScheme.surface
     }
 
-// To exclude given squares
-//    val backgroundColor = if (isSelected) {
-//        Color(0xFFADD8E6)
-//    } else if (isGiven) {
-//        MaterialTheme.colorScheme.surfaceVariant
-//    } else if (isHighlighted) {
-//        Color(0xFFD3D3D3)
-//    } else {
-//        MaterialTheme.colorScheme.surface
-//    }
-
     Box(
         modifier = Modifier
-            .size(37.dp)
+            .size(56.dp)
             .border(width = 1.dp, color = borderColor)
             .background(backgroundColor)
             .clickable(onClick = onClick),
@@ -357,7 +265,7 @@ private fun SudokuCell(
     ) {
         Text(
             text = value?.toString().orEmpty(),
-            style = MaterialTheme.typography.bodyLarge,
+            style = MaterialTheme.typography.headlineSmall,
             fontWeight = if (isGiven) FontWeight.Bold else FontWeight.Normal
         )
     }
@@ -365,20 +273,18 @@ private fun SudokuCell(
 
 @Preview(showBackground = true)
 @Composable
-fun SudokuPagePreview() {
+fun MiniSudokuPagePreview() {
     EmptyActivityTheme {
-        SudokuPage(
-            board = SudokuUiState.initialBoard,
-            givenCells = SudokuUiState.initialGivenCells,
+        MiniSudokuPage(
+            board = MiniSudokuUiState.initialBoard,
+            givenCells = MiniSudokuUiState.initialGivenCells,
             selectedIndex = null,
             isComplete = false,
-            difficulty = SudokuDifficulty.Easy,
+            difficulty = MiniSudokuDifficulty.Easy,
             onCellSelected = {},
             onNumberInput = {},
-            onClearSelected = {},
             onUndoMove = {},
             onToggleDifficulty = {},
-            onHelpClick = {},
             onBackToGames = {},
             onNewGame = {},
             onRestartGame = {}

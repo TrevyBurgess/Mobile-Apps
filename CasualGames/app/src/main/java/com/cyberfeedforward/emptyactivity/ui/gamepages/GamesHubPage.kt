@@ -19,6 +19,7 @@ import com.cyberfeedforward.emptyactivity.ui.theme.EmptyActivityTheme
 @Composable
 fun GamesHubPage(
     onSudokuClick: () -> Unit,
+    onMiniSudokuClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -43,6 +44,13 @@ fun GamesHubPage(
         ) {
             Text(text = stringResource(R.string.play_sudoku))
         }
+
+        Button(
+            onClick = onMiniSudokuClick,
+            modifier = Modifier.padding(top = 12.dp)
+        ) {
+            Text(text = stringResource(R.string.play_mini_sudoku))
+        }
     }
 }
 
@@ -50,6 +58,9 @@ fun GamesHubPage(
 @Composable
 fun GamesHubPagePreview() {
     EmptyActivityTheme {
-        GamesHubPage(onSudokuClick = {})
+        GamesHubPage(
+            onSudokuClick = {},
+            onMiniSudokuClick = {}
+        )
     }
 }

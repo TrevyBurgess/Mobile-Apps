@@ -10,7 +10,7 @@ Create an app for hosting casual games
 
 ### Mini Sudoku
 
-1. Create a Mini Sudoku game, using SudokuPage.kt as a template for page layout.
+1. Create a Mini Sudoku game, using SudokuPage.kt as a template .
 
 
 
@@ -32,7 +32,15 @@ Add a button to the navigation bar to navigate to this page.
 
 1. Create a Mini Sudoku game, using SudokuPage.kt as a template for page layout.
 
+### Zip
 
+### Tango
+
+### Queens
+
+### Crossclimb
+
+### Pinpoint
 
 
 

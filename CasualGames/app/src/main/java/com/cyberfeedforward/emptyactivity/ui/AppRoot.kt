@@ -29,6 +29,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.cyberfeedforward.emptyactivity.ui.gamepages.GamesHubPage
+import com.cyberfeedforward.emptyactivity.ui.gamepages.MiniSudokuPage
 import com.cyberfeedforward.emptyactivity.ui.gamepages.SudokuHelpPage
 import com.cyberfeedforward.emptyactivity.ui.gamepages.SudokuPage
 import com.cyberfeedforward.emptyactivity.ui.navigation.AppDestination
@@ -37,6 +38,7 @@ import com.cyberfeedforward.emptyactivity.ui.screens.HomeScreen
 import com.cyberfeedforward.emptyactivity.ui.screens.SettingsScreen
 import com.cyberfeedforward.emptyactivity.ui.theme.EmptyActivityTheme
 import com.cyberfeedforward.emptyactivity.ui.viewmodel.HomeViewModel
+import com.cyberfeedforward.emptyactivity.ui.viewmodel.MiniSudokuViewModel
 import com.cyberfeedforward.emptyactivity.ui.viewmodel.SettingsViewModel
 import com.cyberfeedforward.emptyactivity.ui.viewmodel.SudokuViewModel
 
@@ -121,9 +123,14 @@ private fun AppNavHost(
             HomeRoute()
         }
         composable(AppDestination.Games.route) {
-            GamesRoute(onOpenSudoku = {
-                navController.navigate(AppDestination.Sudoku.route)
-            })
+            GamesRoute(
+                onOpenSudoku = {
+                    navController.navigate(AppDestination.Sudoku.route)
+                },
+                onOpenMiniSudoku = {
+                    navController.navigate(AppDestination.MiniSudoku.route)
+                }
+            )
         }
         composable(AppDestination.Sudoku.route) {
             SudokuRoute(
@@ -136,6 +143,11 @@ private fun AppNavHost(
         }
         composable(AppDestination.SudokuHelp.route) {
             SudokuHelpRoute(onReturnToSudoku = {
+                navController.popBackStack()
+            })
+        }
+        composable(AppDestination.MiniSudoku.route) {
+            MiniSudokuRoute(onBackToGames = {
                 navController.popBackStack()
             })
         }
@@ -157,9 +169,36 @@ private fun HomeRoute(viewModel: HomeViewModel = viewModel()) {
 }
 
 @Composable
-private fun GamesRoute(onOpenSudoku: () -> Unit) {
+private fun GamesRoute(
+    onOpenSudoku: () -> Unit,
+    onOpenMiniSudoku: () -> Unit
+) {
     GamesHubPage(
         onSudokuClick = onOpenSudoku,
+        onMiniSudokuClick = onOpenMiniSudoku,
+        modifier = Modifier.padding(16.dp)
+    )
+}
+
+@Composable
+private fun MiniSudokuRoute(
+    onBackToGames: () -> Unit,
+    viewModel: MiniSudokuViewModel = viewModel()
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    MiniSudokuPage(
+        board = uiState.board,
+        givenCells = uiState.givenCells,
+        selectedIndex = uiState.selectedIndex,
+        isComplete = uiState.isComplete,
+        difficulty = uiState.difficulty,
+        onCellSelected = viewModel::selectCell,
+        onNumberInput = viewModel::inputNumber,
+        onUndoMove = viewModel::undoLastMove,
+        onToggleDifficulty = viewModel::toggleDifficulty,
+        onBackToGames = onBackToGames,
+        onNewGame = viewModel::startNewGame,
+        onRestartGame = viewModel::restartCurrentGame,
         modifier = Modifier.padding(16.dp)
     )
 }
@@ -176,10 +215,12 @@ private fun SudokuRoute(
         givenCells = uiState.givenCells,
         selectedIndex = uiState.selectedIndex,
         isComplete = uiState.isComplete,
+        difficulty = uiState.difficulty,
         onCellSelected = viewModel::selectCell,
         onNumberInput = viewModel::inputNumber,
         onClearSelected = viewModel::clearSelected,
         onUndoMove = viewModel::undoLastMove,
+        onToggleDifficulty = viewModel::toggleDifficulty,
         onHelpClick = onHelpClick,
         onBackToGames = onBackToGames,
         onNewGame = viewModel::startNewGame,

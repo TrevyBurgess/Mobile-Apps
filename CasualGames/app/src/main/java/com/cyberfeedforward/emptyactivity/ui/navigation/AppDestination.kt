@@ -22,6 +22,11 @@ sealed class AppDestination(
         labelRes = R.string.sudoku_title
     )
 
+    data object MiniSudoku : AppDestination(
+        route = "games/mini-sudoku",
+        labelRes = R.string.mini_sudoku_title
+    )
+
     data object SudokuHelp : AppDestination(
         route = "games/sudoku/help",
         labelRes = R.string.help

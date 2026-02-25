@@ -1,10 +1,16 @@
 package com.cyberfeedforward.emptyactivity.ui.state
 
+enum class SudokuDifficulty {
+    Easy,
+    Hard
+}
+
 data class SudokuUiState(
     val board: List<Int?> = initialBoard,
     val givenCells: Set<Int> = initialGivenCells,
     val selectedIndex: Int? = null,
-    val isComplete: Boolean = false
+    val isComplete: Boolean = false,
+    val difficulty: SudokuDifficulty = SudokuDifficulty.Easy
 ) {
     companion object {
         val seedBoards: List<List<Int?>> = listOf(

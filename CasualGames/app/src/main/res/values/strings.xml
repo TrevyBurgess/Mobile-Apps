@@ -11,6 +11,7 @@
     <string name="games_hub_title">Games</string>
     <string name="games_hub_message">Choose a game page.</string>
     <string name="play_sudoku">Play Sudoku</string>
+    <string name="play_mini_sudoku">Play Mini Sudoku</string>
 
     <string name="games_available_count">Available games: %1$d</string>
     <string name="games_description">You can expand this list from a repository later.</string>
@@ -21,6 +22,12 @@
     <string name="about_message">Casual Games is a growing collection of games built for quick fun sessions.</string>
 
     <string name="sudoku_title">Sudoku</string>
+    <string name="sudoku_difficulty_easy">Easy</string>
+    <string name="sudoku_difficulty_hard">Hard</string>
+    <string name="mini_sudoku_title">Mini Sudoku</string>
+    <string name="mini_sudoku_difficulty_easy">Easy</string>
+    <string name="mini_sudoku_difficulty_hard">Hard</string>
+    <string name="mini_sudoku_solved">Mini Sudoku solved!</string>
     <string name="new_game">New Game</string>
     <string name="undo_move">Undo</string>
     <string name="help">Help</string>

@@ -7,6 +7,7 @@ Create an app for hosting casual games
 
 ### Sudoku
 1. Create a Mini Sudoku game. Add it to a page called Mini Sudoku. Add a button to the game to the Games page
+1. Add a button on the SudokuPage page to control if the new Sudoku game is easy or hard. Also dynamically generate the suduko games.
 
 ### Mini Sudoku
 

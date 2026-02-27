@@ -20,6 +20,8 @@ import com.cyberfeedforward.emptyactivity.ui.theme.EmptyActivityTheme
 fun GamesHubPage(
     onSudokuClick: () -> Unit,
     onMiniSudokuClick: () -> Unit,
+    onQueensClick: () -> Unit,
+    onLinkedQueensClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -51,6 +53,20 @@ fun GamesHubPage(
         ) {
             Text(text = stringResource(R.string.play_mini_sudoku))
         }
+
+//        Button(
+//            onClick = onQueensClick,
+//            modifier = Modifier.padding(top = 12.dp)
+//        ) {
+//            Text(text = stringResource(R.string.play_queens))
+//        }
+
+        Button(
+            onClick = onLinkedQueensClick,
+            modifier = Modifier.padding(top = 12.dp)
+        ) {
+            Text(text = stringResource(R.string.play_linkedin_queens))
+        }
     }
 }
 
@@ -60,7 +76,9 @@ fun GamesHubPagePreview() {
     EmptyActivityTheme {
         GamesHubPage(
             onSudokuClick = {},
-            onMiniSudokuClick = {}
+            onMiniSudokuClick = {},
+            onQueensClick = {},
+            onLinkedQueensClick = {}
         )
     }
 }

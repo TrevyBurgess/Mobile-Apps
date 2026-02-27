@@ -29,7 +29,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.cyberfeedforward.emptyactivity.ui.gamepages.GamesHubPage
+import com.cyberfeedforward.emptyactivity.ui.gamepages.LinkedQueensPage
 import com.cyberfeedforward.emptyactivity.ui.gamepages.MiniSudokuPage
+import com.cyberfeedforward.emptyactivity.ui.gamepages.QueensPage
 import com.cyberfeedforward.emptyactivity.ui.gamepages.SudokuHelpPage
 import com.cyberfeedforward.emptyactivity.ui.gamepages.SudokuPage
 import com.cyberfeedforward.emptyactivity.ui.navigation.AppDestination
@@ -38,7 +40,9 @@ import com.cyberfeedforward.emptyactivity.ui.screens.HomeScreen
 import com.cyberfeedforward.emptyactivity.ui.screens.SettingsScreen
 import com.cyberfeedforward.emptyactivity.ui.theme.EmptyActivityTheme
 import com.cyberfeedforward.emptyactivity.ui.viewmodel.HomeViewModel
+import com.cyberfeedforward.emptyactivity.ui.viewmodel.LinkedQueensViewModel
 import com.cyberfeedforward.emptyactivity.ui.viewmodel.MiniSudokuViewModel
+import com.cyberfeedforward.emptyactivity.ui.viewmodel.QueensViewModel
 import com.cyberfeedforward.emptyactivity.ui.viewmodel.SettingsViewModel
 import com.cyberfeedforward.emptyactivity.ui.viewmodel.SudokuViewModel
 
@@ -129,6 +133,12 @@ private fun AppNavHost(
                 },
                 onOpenMiniSudoku = {
                     navController.navigate(AppDestination.MiniSudoku.route)
+                },
+                onOpenQueens = {
+                    navController.navigate(AppDestination.Queens.route)
+                },
+                onOpenLinkedQueens = {
+                    navController.navigate(AppDestination.LinkedQueens.route)
                 }
             )
         }
@@ -148,6 +158,16 @@ private fun AppNavHost(
         }
         composable(AppDestination.MiniSudoku.route) {
             MiniSudokuRoute(onBackToGames = {
+                navController.popBackStack()
+            })
+        }
+        composable(AppDestination.Queens.route) {
+            QueensRoute(onBackToGames = {
+                navController.popBackStack()
+            })
+        }
+        composable(AppDestination.LinkedQueens.route) {
+            LinkedQueensRoute(onBackToGames = {
                 navController.popBackStack()
             })
         }
@@ -171,11 +191,63 @@ private fun HomeRoute(viewModel: HomeViewModel = viewModel()) {
 @Composable
 private fun GamesRoute(
     onOpenSudoku: () -> Unit,
-    onOpenMiniSudoku: () -> Unit
+    onOpenMiniSudoku: () -> Unit,
+    onOpenQueens: () -> Unit,
+    onOpenLinkedQueens: () -> Unit
 ) {
     GamesHubPage(
         onSudokuClick = onOpenSudoku,
         onMiniSudokuClick = onOpenMiniSudoku,
+        onQueensClick = onOpenQueens,
+        onLinkedQueensClick = onOpenLinkedQueens,
+        modifier = Modifier.padding(16.dp)
+    )
+}
+
+@Composable
+private fun LinkedQueensRoute(
+    onBackToGames: () -> Unit,
+    viewModel: LinkedQueensViewModel = viewModel()
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    LinkedQueensPage(
+        boardSize = uiState.boardSize,
+        regions = uiState.regions,
+        queens = uiState.queens,
+        isComplete = uiState.isComplete,
+        difficulty = uiState.difficulty,
+        hintsEnabled = uiState.hintsEnabled,
+        onCellToggle = viewModel::toggleCell,
+        onToggleDifficulty = viewModel::toggleDifficulty,
+        onToggleHints = viewModel::toggleHints,
+        onBackToGames = onBackToGames,
+        onNewGame = viewModel::startNewGame,
+        onUndoMove = viewModel::undoLastMove,
+        onRestartGame = viewModel::restartCurrentGame,
+        modifier = Modifier.padding(16.dp)
+    )
+}
+
+@Composable
+private fun QueensRoute(
+    onBackToGames: () -> Unit,
+    viewModel: QueensViewModel = viewModel()
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    QueensPage(
+        boardSize = uiState.boardSize,
+        queens = uiState.queens,
+        givenQueens = uiState.givenQueens,
+        isComplete = uiState.isComplete,
+        difficulty = uiState.difficulty,
+        hintsEnabled = uiState.hintsEnabled,
+        onCellToggle = viewModel::toggleCell,
+        onToggleDifficulty = viewModel::toggleDifficulty,
+        onToggleHints = viewModel::toggleHints,
+        onBackToGames = onBackToGames,
+        onNewGame = viewModel::startNewGame,
+        onUndoMove = viewModel::undoLastMove,
+        onRestartGame = viewModel::restartCurrentGame,
         modifier = Modifier.padding(16.dp)
     )
 }

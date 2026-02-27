@@ -27,6 +27,16 @@ sealed class AppDestination(
         labelRes = R.string.mini_sudoku_title
     )
 
+    data object Queens : AppDestination(
+        route = "games/queens",
+        labelRes = R.string.queens_title
+    )
+
+    data object LinkedQueens : AppDestination(
+        route = "games/linked-queens",
+        labelRes = R.string.linkedin_queens_title
+    )
+
     data object SudokuHelp : AppDestination(
         route = "games/sudoku/help",
         labelRes = R.string.help

@@ -215,6 +215,7 @@ private fun LinkedQueensRoute(
         regions = uiState.regions,
         queens = uiState.queens,
         isComplete = uiState.isComplete,
+        isGenerating = uiState.isGenerating,
         difficulty = uiState.difficulty,
         hintsEnabled = uiState.hintsEnabled,
         onCellToggle = viewModel::toggleCell,

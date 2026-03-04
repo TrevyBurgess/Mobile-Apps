@@ -43,6 +43,7 @@ fun LinkedQueensPage(
     regions: List<Int>,
     queens: Set<Int>,
     isComplete: Boolean,
+    isGenerating: Boolean,
     difficulty: LinkedQueensDifficulty,
     hintsEnabled: Boolean,
     onCellToggle: (Int) -> Unit,
@@ -82,7 +83,7 @@ fun LinkedQueensPage(
             regions = regions,
             queens = queens,
             hintsEnabled = hintsEnabled,
-            onCellToggle = onCellToggle
+            onCellToggle = { if (!isGenerating) onCellToggle(it) }
         )
 
         Row(modifier = Modifier.padding(top = 12.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -115,6 +116,16 @@ fun LinkedQueensPage(
                 Text(text = if (hintsEnabled) stringResource(R.string.hints_off) else stringResource(R.string.hints_on))
             }
 
+        }
+
+        if (isGenerating) {
+            Text(
+                text = stringResource(R.string.linkedin_queens_generating),
+                modifier = Modifier.padding(top = 12.dp),
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.Medium
+            )
         }
 
 
@@ -278,6 +289,7 @@ private fun LinkedQueensPagePreview() {
             regions = List(25) { it % 5 },
             queens = setOf(1, 8),
             isComplete = false,
+            isGenerating = false,
             difficulty = LinkedQueensDifficulty.Easy,
             hintsEnabled = true,
             onCellToggle = {},

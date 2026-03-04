@@ -1,12 +1,17 @@
 package com.cyberfeedforward.emptyactivity.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.cyberfeedforward.emptyactivity.ui.state.LinkedQueensDifficulty
 import com.cyberfeedforward.emptyactivity.ui.state.LinkedQueensUiState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.random.Random
@@ -17,6 +22,8 @@ class LinkedQueensViewModel : ViewModel() {
 
     private val moveHistory = mutableListOf<Set<Int>>()
     private var currentRegions: List<Int> = List(25) { 0 }
+    private val seenPuzzleLayoutsBySize = mutableMapOf<Int, MutableSet<String>>()
+    private var generationJob: Job? = null
 
     init {
         startNewGame()
@@ -53,20 +60,28 @@ class LinkedQueensViewModel : ViewModel() {
     fun startNewGame() {
         val hintsEnabled = _uiState.value.hintsEnabled
         val difficulty = _uiState.value.difficulty
-        val size = if (difficulty == LinkedQueensDifficulty.Easy) 5 else 7
-        val solution = generateSolution(size)
-        val regions = generateRegions(solution, size)
-        currentRegions = regions
-        moveHistory.clear()
+        generationJob?.cancel()
+        _uiState.update { it.copy(isGenerating = true, isComplete = false, queens = emptySet()) }
 
-        _uiState.value = LinkedQueensUiState(
-            boardSize = size,
-            regions = regions,
-            queens = emptySet(),
-            isComplete = false,
-            hintsEnabled = hintsEnabled,
-            difficulty = difficulty
-        )
+        generationJob = viewModelScope.launch(Dispatchers.Default) {
+            val size = if (difficulty == LinkedQueensDifficulty.Easy) 5 else 7
+            val regions = generateUniqueRegions(size)
+
+            withContext(Dispatchers.Main) {
+                currentRegions = regions
+                moveHistory.clear()
+
+                _uiState.value = LinkedQueensUiState(
+                    boardSize = size,
+                    regions = regions,
+                    queens = emptySet(),
+                    isGenerating = false,
+                    isComplete = false,
+                    hintsEnabled = hintsEnabled,
+                    difficulty = difficulty
+                )
+            }
+        }
     }
 
     fun toggleDifficulty() {
@@ -81,6 +96,7 @@ class LinkedQueensViewModel : ViewModel() {
     }
 
     fun restartCurrentGame() {
+        if (_uiState.value.isGenerating) return
         moveHistory.clear()
         _uiState.value = _uiState.value.copy(
             queens = emptySet(),
@@ -90,6 +106,7 @@ class LinkedQueensViewModel : ViewModel() {
     }
 
     fun undoLastMove() {
+        if (_uiState.value.isGenerating) return
         val previous = moveHistory.removeLastOrNull() ?: return
         _uiState.update {
             it.copy(
@@ -105,6 +122,20 @@ class LinkedQueensViewModel : ViewModel() {
             if (solveRow(0, size, columns)) {
                 return columns
             }
+        }
+    }
+
+    private fun generateUniqueRegions(size: Int): List<Int> {
+        val seenForSize = seenPuzzleLayoutsBySize.getOrPut(size) { mutableSetOf() }
+
+        while (true) {
+            val candidate = generateRegions(generateSolution(size), size)
+            val key = candidate.joinToString(",")
+            if (key in seenForSize) continue
+            if (!hasExactlyOneSolution(size, candidate)) continue
+
+            seenForSize.add(key)
+            return candidate
         }
     }
 
@@ -183,5 +214,46 @@ class LinkedQueensViewModel : ViewModel() {
         }
 
         return true
+    }
+
+    private fun hasExactlyOneSolution(size: Int, regions: List<Int>): Boolean {
+        val usedCols = BooleanArray(size)
+        val usedDiagDown = HashSet<Int>()
+        val usedDiagUp = HashSet<Int>()
+        val usedRegions = HashSet<Int>()
+
+        fun count(row: Int, found: Int): Int {
+            if (found > 1) return found
+            if (row == size) return found + 1
+
+            var solutions = found
+            for (col in 0 until size) {
+                val down = row - col
+                val up = row + col
+                val region = regions[row * size + col]
+
+                if (usedCols[col]) continue
+                if (down in usedDiagDown || up in usedDiagUp) continue
+                if (region in usedRegions) continue
+
+                usedCols[col] = true
+                usedDiagDown.add(down)
+                usedDiagUp.add(up)
+                usedRegions.add(region)
+
+                solutions = count(row + 1, solutions)
+
+                usedCols[col] = false
+                usedDiagDown.remove(down)
+                usedDiagUp.remove(up)
+                usedRegions.remove(region)
+
+                if (solutions > 1) return solutions
+            }
+
+            return solutions
+        }
+
+        return count(row = 0, found = 0) == 1
     }
 }

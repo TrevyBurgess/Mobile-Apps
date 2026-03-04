@@ -9,7 +9,6 @@ data class LinkedQueensUiState(
     val boardSize: Int = 5,
     val regions: List<Int> = List(25) { 0 },
     val queens: Set<Int> = emptySet(),
-    val isGenerating: Boolean = false,
     val isComplete: Boolean = false,
     val hintsEnabled: Boolean = false,
     val difficulty: LinkedQueensDifficulty = LinkedQueensDifficulty.Easy

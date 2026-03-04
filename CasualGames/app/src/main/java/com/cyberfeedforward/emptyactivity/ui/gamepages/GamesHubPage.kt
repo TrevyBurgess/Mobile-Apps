@@ -54,12 +54,12 @@ fun GamesHubPage(
             Text(text = stringResource(R.string.play_mini_sudoku))
         }
 
-        Button(
-            onClick = onQueensClick,
-            modifier = Modifier.padding(top = 12.dp)
-        ) {
-            Text(text = stringResource(R.string.play_queens))
-        }
+//        Button(
+//            onClick = onQueensClick,
+//            modifier = Modifier.padding(top = 12.dp)
+//        ) {
+//            Text(text = stringResource(R.string.play_queens))
+//        }
 
         Button(
             onClick = onLinkedQueensClick,

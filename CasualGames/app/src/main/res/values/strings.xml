@@ -36,7 +36,6 @@
     <string name="queens_difficulty_hard">Hard</string>
     <string name="queens_solved">Queens puzzle solved!</string>
     <string name="linkedin_queens_solved">Queens puzzle solved!</string>
-    <string name="linkedin_queens_generating">Generating puzzle...</string>
     <string name="linkedin_queens_difficulty_easy">Easy</string>
     <string name="linkedin_queens_difficulty_hard">Hard</string>
     <string name="hints_on">Hints On</string>

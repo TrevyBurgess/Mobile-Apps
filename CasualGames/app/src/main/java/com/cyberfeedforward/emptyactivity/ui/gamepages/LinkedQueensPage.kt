@@ -117,7 +117,6 @@ fun LinkedQueensPage(
 
         }
 
-
         if (isComplete) {
             Text(
                 text = stringResource(R.string.linkedin_queens_solved),

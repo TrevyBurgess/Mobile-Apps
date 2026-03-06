@@ -14,6 +14,8 @@
     <string name="play_mini_sudoku">Play Mini Sudoku</string>
     <string name="play_queens">Play Queens</string>
     <string name="play_linkedin_queens">Play Queens</string>
+    <string name="play_mahjong">Play Mahjong</string>
+    <string name="play_solitaire">Play Solitaire</string>
 
     <string name="games_available_count">Available games: %1$d</string>
     <string name="games_description">You can expand this list from a repository later.</string>
@@ -32,6 +34,8 @@
     <string name="mini_sudoku_solved">Mini Sudoku solved!</string>
     <string name="queens_title">Queens</string>
     <string name="linkedin_queens_title">Queens</string>
+    <string name="mahjong_title">Mahjong</string>
+    <string name="solitaire_title">Solitaire</string>
     <string name="queens_difficulty_easy">Easy</string>
     <string name="queens_difficulty_hard">Hard</string>
     <string name="queens_solved">Queens puzzle solved!</string>
@@ -47,6 +51,13 @@
     <string name="restart_game">Restart Game</string>
     <string name="back_to_games">Back to Games</string>
     <string name="sudoku_solved">Sudoku solved!</string>
+    <string name="mahjong_pairs_remaining">Pairs remaining: %1$d</string>
+    <string name="mahjong_solved">Mahjong solved!</string>
+    <string name="solitaire_instruction">Move cards in ascending order from Deck to Foundation.</string>
+    <string name="solitaire_deck">Deck</string>
+    <string name="solitaire_foundation">Foundation</string>
+    <string name="solitaire_play_card">Play Top Card</string>
+    <string name="solitaire_solved">Solitaire solved!</string>
     <string name="sudoku_help_title">How to Play Sudoku</string>
     <string name="sudoku_help_instructions">Fill each row, column, and 3x3 box with numbers 1 through 9.\n\nEach number can appear only once in each row, once in each column, and once in each 3x3 box.\n\nUse logic to place numbers. If you make a mistake, use Undo or Erase.</string>
     <string name="return_to_sudoku">Return to Sudoku</string>

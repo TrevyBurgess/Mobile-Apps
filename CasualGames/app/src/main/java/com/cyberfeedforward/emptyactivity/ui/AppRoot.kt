@@ -30,8 +30,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.cyberfeedforward.emptyactivity.ui.gamepages.GamesHubPage
 import com.cyberfeedforward.emptyactivity.ui.gamepages.LinkedQueensPage
+import com.cyberfeedforward.emptyactivity.ui.gamepages.MahjongPage
 import com.cyberfeedforward.emptyactivity.ui.gamepages.MiniSudokuPage
 import com.cyberfeedforward.emptyactivity.ui.gamepages.QueensPage
+import com.cyberfeedforward.emptyactivity.ui.gamepages.SolitairePage
 import com.cyberfeedforward.emptyactivity.ui.gamepages.SudokuHelpPage
 import com.cyberfeedforward.emptyactivity.ui.gamepages.SudokuPage
 import com.cyberfeedforward.emptyactivity.ui.navigation.AppDestination
@@ -139,6 +141,12 @@ private fun AppNavHost(
                 },
                 onOpenLinkedQueens = {
                     navController.navigate(AppDestination.LinkedQueens.route)
+                },
+                onOpenMahjong = {
+                    navController.navigate(AppDestination.Mahjong.route)
+                },
+                onOpenSolitaire = {
+                    navController.navigate(AppDestination.Solitaire.route)
                 }
             )
         }
@@ -171,6 +179,16 @@ private fun AppNavHost(
                 navController.popBackStack()
             })
         }
+        composable(AppDestination.Mahjong.route) {
+            MahjongRoute(onBackToGames = {
+                navController.popBackStack()
+            })
+        }
+        composable(AppDestination.Solitaire.route) {
+            SolitaireRoute(onBackToGames = {
+                navController.popBackStack()
+            })
+        }
         composable(AppDestination.Settings.route) {
             SettingsRoute()
         }
@@ -193,13 +211,17 @@ private fun GamesRoute(
     onOpenSudoku: () -> Unit,
     onOpenMiniSudoku: () -> Unit,
     onOpenQueens: () -> Unit,
-    onOpenLinkedQueens: () -> Unit
+    onOpenLinkedQueens: () -> Unit,
+    onOpenMahjong: () -> Unit,
+    onOpenSolitaire: () -> Unit
 ) {
     GamesHubPage(
         onSudokuClick = onOpenSudoku,
         onMiniSudokuClick = onOpenMiniSudoku,
         onQueensClick = onOpenQueens,
         onLinkedQueensClick = onOpenLinkedQueens,
+        onMahjongClick = onOpenMahjong,
+        onSolitaireClick = onOpenSolitaire,
         modifier = Modifier.padding(16.dp)
     )
 }
@@ -224,6 +246,22 @@ private fun LinkedQueensRoute(
         onNewGame = viewModel::startNewGame,
         onUndoMove = viewModel::undoLastMove,
         onRestartGame = viewModel::restartCurrentGame,
+        modifier = Modifier.padding(16.dp)
+    )
+}
+
+@Composable
+private fun MahjongRoute(onBackToGames: () -> Unit) {
+    MahjongPage(
+        onBackToGames = onBackToGames,
+        modifier = Modifier.padding(16.dp)
+    )
+}
+
+@Composable
+private fun SolitaireRoute(onBackToGames: () -> Unit) {
+    SolitairePage(
+        onBackToGames = onBackToGames,
         modifier = Modifier.padding(16.dp)
     )
 }

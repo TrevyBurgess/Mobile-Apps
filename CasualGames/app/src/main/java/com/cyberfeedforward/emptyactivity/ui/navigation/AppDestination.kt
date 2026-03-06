@@ -37,6 +37,16 @@ sealed class AppDestination(
         labelRes = R.string.linkedin_queens_title
     )
 
+    data object Mahjong : AppDestination(
+        route = "games/mahjong",
+        labelRes = R.string.mahjong_title
+    )
+
+    data object Solitaire : AppDestination(
+        route = "games/solitaire",
+        labelRes = R.string.solitaire_title
+    )
+
     data object SudokuHelp : AppDestination(
         route = "games/sudoku/help",
         labelRes = R.string.help

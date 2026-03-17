@@ -43,6 +43,7 @@ import com.cyberfeedforward.emptyactivity.ui.screens.SettingsScreen
 import com.cyberfeedforward.emptyactivity.ui.theme.EmptyActivityTheme
 import com.cyberfeedforward.emptyactivity.ui.viewmodel.HomeViewModel
 import com.cyberfeedforward.emptyactivity.ui.viewmodel.LinkedQueensViewModel
+import com.cyberfeedforward.emptyactivity.ui.viewmodel.MahjongViewModel
 import com.cyberfeedforward.emptyactivity.ui.viewmodel.MiniSudokuViewModel
 import com.cyberfeedforward.emptyactivity.ui.viewmodel.QueensViewModel
 import com.cyberfeedforward.emptyactivity.ui.viewmodel.SettingsViewModel
@@ -251,8 +252,13 @@ private fun LinkedQueensRoute(
 }
 
 @Composable
-private fun MahjongRoute(onBackToGames: () -> Unit) {
+private fun MahjongRoute(
+    onBackToGames: () -> Unit,
+    viewModel: MahjongViewModel = viewModel()
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     MahjongPage(
+        uiState = uiState,
         onBackToGames = onBackToGames,
         modifier = Modifier.padding(16.dp)
     )

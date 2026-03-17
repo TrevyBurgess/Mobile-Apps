@@ -2,9 +2,21 @@ package com.cyberfeedforward.emptyactivity.ui.gamepages
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Apps
+import androidx.compose.material.icons.outlined.DeviceHub
+import androidx.compose.material.icons.outlined.GridOn
+import androidx.compose.material.icons.outlined.Style
+import androidx.compose.material.icons.outlined.ViewModule
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,7 +42,6 @@ fun GamesHubPage(
         modifier = modifier
             .fillMaxSize()
             .padding(24.dp),
-        verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -42,46 +53,42 @@ fun GamesHubPage(
             modifier = Modifier.padding(top = 8.dp),
             style = MaterialTheme.typography.bodyLarge
         )
-        Button(
-            onClick = onSudokuClick,
-            modifier = Modifier.padding(top = 20.dp)
-        ) {
-            Text(text = stringResource(R.string.play_sudoku))
-        }
 
-        Button(
-            onClick = onMiniSudokuClick,
-            modifier = Modifier.padding(top = 12.dp)
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            modifier = Modifier
+                .padding(top = 20.dp)
+                .fillMaxSize(),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Text(text = stringResource(R.string.play_mini_sudoku))
-        }
-
-//        Button(
-//            onClick = onQueensClick,
-//            modifier = Modifier.padding(top = 12.dp)
-//        ) {
-//            Text(text = stringResource(R.string.play_queens))
-//        }
-
-        Button(
-            onClick = onLinkedQueensClick,
-            modifier = Modifier.padding(top = 12.dp)
-        ) {
-            Text(text = stringResource(R.string.play_linkedin_queens))
-        }
-
-        Button(
-            onClick = onMahjongClick,
-            modifier = Modifier.padding(top = 12.dp)
-        ) {
-            Text(text = stringResource(R.string.play_mahjong))
-        }
-
-        Button(
-            onClick = onSolitaireClick,
-            modifier = Modifier.padding(top = 12.dp)
-        ) {
-            Text(text = stringResource(R.string.play_solitaire))
+            items(
+                listOf(
+                    Triple(R.string.play_sudoku, Icons.Outlined.GridOn, onSudokuClick),
+                    Triple(R.string.play_mini_sudoku, Icons.Outlined.Apps, onMiniSudokuClick),
+                    Triple(R.string.play_linkedin_queens, Icons.Outlined.DeviceHub, onLinkedQueensClick),
+                    Triple(R.string.play_mahjong, Icons.Outlined.ViewModule, onMahjongClick),
+                    Triple(R.string.play_solitaire, Icons.Outlined.Style, onSolitaireClick)
+                )
+            ) { (labelRes, icon, onClick) ->
+                Button(
+                    onClick = onClick,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(72.dp)
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        Icon(
+                            imageVector = icon,
+                            contentDescription = stringResource(labelRes)
+                        )
+                        Text(text = stringResource(labelRes))
+                    }
+                }
+            }
         }
     }
 }

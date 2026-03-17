@@ -6,7 +6,7 @@ Create an app for hosting casual games
 
 ### mahjong
 
-
+1. Create a page named Mahjong. Add a button to the Games page
 
 
 

@@ -8,7 +8,9 @@ Create an app for hosting casual games
 
 1. Create a page named Mahjong. Add a button to the Games page
 
+### Wordle Android (Kotlin
 
+1. Create a Wordle game based on the Android Wordle game. Use QueensPage as a template
 
 
 

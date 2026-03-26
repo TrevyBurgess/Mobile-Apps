@@ -14,6 +14,7 @@ import androidx.compose.material.icons.outlined.Apps
 import androidx.compose.material.icons.outlined.DeviceHub
 import androidx.compose.material.icons.outlined.GridOn
 import androidx.compose.material.icons.outlined.Style
+import androidx.compose.material.icons.outlined.TextFields
 import androidx.compose.material.icons.outlined.ViewModule
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
@@ -36,6 +37,7 @@ fun GamesHubPage(
     onLinkedQueensClick: () -> Unit,
     onMahjongClick: () -> Unit,
     onSolitaireClick: () -> Unit,
+    onWordleClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -68,7 +70,8 @@ fun GamesHubPage(
                     Triple(R.string.play_mini_sudoku, Icons.Outlined.Apps, onMiniSudokuClick),
                     Triple(R.string.play_linkedin_queens, Icons.Outlined.DeviceHub, onLinkedQueensClick),
                     Triple(R.string.play_mahjong, Icons.Outlined.ViewModule, onMahjongClick),
-                    Triple(R.string.play_solitaire, Icons.Outlined.Style, onSolitaireClick)
+                    Triple(R.string.play_solitaire, Icons.Outlined.Style, onSolitaireClick),
+                    Triple(R.string.play_wordle, Icons.Outlined.TextFields, onWordleClick)
                 )
             ) { (labelRes, icon, onClick) ->
                 Button(
@@ -103,7 +106,8 @@ fun GamesHubPagePreview() {
             onQueensClick = {},
             onLinkedQueensClick = {},
             onMahjongClick = {},
-            onSolitaireClick = {}
+            onSolitaireClick = {},
+            onWordleClick = {}
         )
     }
 }

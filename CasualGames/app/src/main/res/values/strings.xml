@@ -16,6 +16,7 @@
     <string name="play_linkedin_queens">Queens</string>
     <string name="play_mahjong">Mahjong</string>
     <string name="play_solitaire">Solitaire</string>
+    <string name="play_wordle">Wordle</string>
 
     <string name="games_available_count">Available games: %1$d</string>
     <string name="games_description">You can expand this list from a repository later.</string>
@@ -36,6 +37,7 @@
     <string name="linkedin_queens_title">Queens</string>
     <string name="mahjong_title">Mahjong</string>
     <string name="solitaire_title">Solitaire</string>
+    <string name="wordle_title">Wordle</string>
 
     <string name="queens_difficulty_easy">Easy</string>
     <string name="queens_difficulty_hard">Hard</string>
@@ -53,6 +55,8 @@
     <string name="back_to_games">Back to Games</string>
     <string name="mahjong_coming_soon">Coming soon.</string>
     <string name="sudoku_solved">Sudoku solved!</string>
+    <string name="wordle_solved">Wordle solved!</string>
+    <string name="wordle_failed">Out of guesses.</string>
 
     <string name="solitaire_instruction">Move cards in ascending order from Deck to Foundation.</string>
     <string name="solitaire_deck">Deck</string>

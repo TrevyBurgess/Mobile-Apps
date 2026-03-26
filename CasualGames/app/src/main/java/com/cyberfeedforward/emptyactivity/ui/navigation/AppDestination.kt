@@ -47,6 +47,11 @@ sealed class AppDestination(
         labelRes = R.string.solitaire_title
     )
 
+    data object Wordle : AppDestination(
+        route = "games/wordle",
+        labelRes = R.string.wordle_title
+    )
+
     data object SudokuHelp : AppDestination(
         route = "games/sudoku/help",
         labelRes = R.string.help

@@ -36,6 +36,7 @@ import com.cyberfeedforward.emptyactivity.ui.gamepages.QueensPage
 import com.cyberfeedforward.emptyactivity.ui.gamepages.SolitairePage
 import com.cyberfeedforward.emptyactivity.ui.gamepages.SudokuHelpPage
 import com.cyberfeedforward.emptyactivity.ui.gamepages.SudokuPage
+import com.cyberfeedforward.emptyactivity.ui.gamepages.WordlePage
 import com.cyberfeedforward.emptyactivity.ui.navigation.AppDestination
 import com.cyberfeedforward.emptyactivity.ui.screens.AboutScreen
 import com.cyberfeedforward.emptyactivity.ui.screens.HomeScreen
@@ -48,6 +49,7 @@ import com.cyberfeedforward.emptyactivity.ui.viewmodel.MiniSudokuViewModel
 import com.cyberfeedforward.emptyactivity.ui.viewmodel.QueensViewModel
 import com.cyberfeedforward.emptyactivity.ui.viewmodel.SettingsViewModel
 import com.cyberfeedforward.emptyactivity.ui.viewmodel.SudokuViewModel
+import com.cyberfeedforward.emptyactivity.ui.viewmodel.WordleViewModel
 
 @Composable
 fun AppRoot(modifier: Modifier = Modifier) {
@@ -148,6 +150,9 @@ private fun AppNavHost(
                 },
                 onOpenSolitaire = {
                     navController.navigate(AppDestination.Solitaire.route)
+                },
+                onOpenWordle = {
+                    navController.navigate(AppDestination.Wordle.route)
                 }
             )
         }
@@ -190,6 +195,11 @@ private fun AppNavHost(
                 navController.popBackStack()
             })
         }
+        composable(AppDestination.Wordle.route) {
+            WordleRoute(onBackToGames = {
+                navController.popBackStack()
+            })
+        }
         composable(AppDestination.Settings.route) {
             SettingsRoute()
         }
@@ -214,7 +224,8 @@ private fun GamesRoute(
     onOpenQueens: () -> Unit,
     onOpenLinkedQueens: () -> Unit,
     onOpenMahjong: () -> Unit,
-    onOpenSolitaire: () -> Unit
+    onOpenSolitaire: () -> Unit,
+    onOpenWordle: () -> Unit
 ) {
     GamesHubPage(
         onSudokuClick = onOpenSudoku,
@@ -223,6 +234,25 @@ private fun GamesRoute(
         onLinkedQueensClick = onOpenLinkedQueens,
         onMahjongClick = onOpenMahjong,
         onSolitaireClick = onOpenSolitaire,
+        onWordleClick = onOpenWordle,
+        modifier = Modifier.padding(16.dp)
+    )
+}
+
+@Composable
+private fun WordleRoute(
+    onBackToGames: () -> Unit,
+    viewModel: WordleViewModel = viewModel()
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    WordlePage(
+        uiState = uiState,
+        onInputLetter = viewModel::inputLetter,
+        onBackspace = viewModel::backspace,
+        onSubmitGuess = viewModel::submitGuess,
+        onBackToGames = onBackToGames,
+        onNewGame = viewModel::startNewGame,
+        onRestartGame = viewModel::restartCurrentGame,
         modifier = Modifier.padding(16.dp)
     )
 }

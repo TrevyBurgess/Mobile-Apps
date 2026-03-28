@@ -36,6 +36,7 @@ import com.cyberfeedforward.emptyactivity.ui.gamepages.QueensPage
 import com.cyberfeedforward.emptyactivity.ui.gamepages.SolitairePage
 import com.cyberfeedforward.emptyactivity.ui.gamepages.SudokuHelpPage
 import com.cyberfeedforward.emptyactivity.ui.gamepages.SudokuPage
+import com.cyberfeedforward.emptyactivity.ui.gamepages.TicTacToePage
 import com.cyberfeedforward.emptyactivity.ui.gamepages.WordlePage
 import com.cyberfeedforward.emptyactivity.ui.navigation.AppDestination
 import com.cyberfeedforward.emptyactivity.ui.screens.AboutScreen
@@ -49,6 +50,7 @@ import com.cyberfeedforward.emptyactivity.ui.viewmodel.MiniSudokuViewModel
 import com.cyberfeedforward.emptyactivity.ui.viewmodel.QueensViewModel
 import com.cyberfeedforward.emptyactivity.ui.viewmodel.SettingsViewModel
 import com.cyberfeedforward.emptyactivity.ui.viewmodel.SudokuViewModel
+import com.cyberfeedforward.emptyactivity.ui.viewmodel.TicTacToeViewModel
 import com.cyberfeedforward.emptyactivity.ui.viewmodel.WordleViewModel
 
 @Composable
@@ -153,6 +155,9 @@ private fun AppNavHost(
                 },
                 onOpenWordle = {
                     navController.navigate(AppDestination.Wordle.route)
+                },
+                onOpenTicTacToe = {
+                    navController.navigate(AppDestination.TicTacToe.route)
                 }
             )
         }
@@ -200,6 +205,11 @@ private fun AppNavHost(
                 navController.popBackStack()
             })
         }
+        composable(AppDestination.TicTacToe.route) {
+            TicTacToeRoute(onBackToGames = {
+                navController.popBackStack()
+            })
+        }
         composable(AppDestination.Settings.route) {
             SettingsRoute()
         }
@@ -225,7 +235,8 @@ private fun GamesRoute(
     onOpenLinkedQueens: () -> Unit,
     onOpenMahjong: () -> Unit,
     onOpenSolitaire: () -> Unit,
-    onOpenWordle: () -> Unit
+    onOpenWordle: () -> Unit,
+    onOpenTicTacToe: () -> Unit
 ) {
     GamesHubPage(
         onSudokuClick = onOpenSudoku,
@@ -235,6 +246,24 @@ private fun GamesRoute(
         onMahjongClick = onOpenMahjong,
         onSolitaireClick = onOpenSolitaire,
         onWordleClick = onOpenWordle,
+        onTicTacToeClick = onOpenTicTacToe,
+        modifier = Modifier.padding(16.dp)
+    )
+}
+
+@Composable
+private fun TicTacToeRoute(
+    onBackToGames: () -> Unit,
+    viewModel: TicTacToeViewModel = viewModel()
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    TicTacToePage(
+        uiState = uiState,
+        onCellPressed = viewModel::onCellPressed,
+        onBoardSizeDecrease = { viewModel.setBoardSize(uiState.boardSize - 1) },
+        onBoardSizeIncrease = { viewModel.setBoardSize(uiState.boardSize + 1) },
+        onRestartGame = viewModel::restartGame,
+        onBackToGames = onBackToGames,
         modifier = Modifier.padding(16.dp)
     )
 }

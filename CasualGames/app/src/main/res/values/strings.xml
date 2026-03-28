@@ -17,6 +17,7 @@
     <string name="play_mahjong">Mahjong</string>
     <string name="play_solitaire">Solitaire</string>
     <string name="play_wordle">Wordle</string>
+    <string name="play_tic_tac_toe">Tic Tac Toe</string>
 
     <string name="games_available_count">Available games: %1$d</string>
     <string name="games_description">You can expand this list from a repository later.</string>
@@ -38,6 +39,7 @@
     <string name="mahjong_title">Mahjong</string>
     <string name="solitaire_title">Solitaire</string>
     <string name="wordle_title">Wordle</string>
+    <string name="tic_tac_toe_title">Tic Tac Toe</string>
 
     <string name="queens_difficulty_easy">Easy</string>
     <string name="queens_difficulty_hard">Hard</string>
@@ -57,6 +59,16 @@
     <string name="sudoku_solved">Sudoku solved!</string>
     <string name="wordle_solved">Wordle solved!</string>
     <string name="wordle_failed">Out of guesses.</string>
+
+    <string name="board_size">Board: %1$dx%1$d</string>
+    <string name="decrease">Decrease</string>
+    <string name="increase">Increase</string>
+
+    <string name="x_turn">X turn</string>
+    <string name="o_turn">O turn</string>
+    <string name="winner_x">X wins!</string>
+    <string name="winner_o">O wins!</string>
+    <string name="draw">Draw</string>
 
     <string name="solitaire_instruction">Move cards in ascending order from Deck to Foundation.</string>
     <string name="solitaire_deck">Deck</string>

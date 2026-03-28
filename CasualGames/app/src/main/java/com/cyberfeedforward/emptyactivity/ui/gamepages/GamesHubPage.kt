@@ -38,6 +38,7 @@ fun GamesHubPage(
     onMahjongClick: () -> Unit,
     onSolitaireClick: () -> Unit,
     onWordleClick: () -> Unit,
+    onTicTacToeClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -71,7 +72,8 @@ fun GamesHubPage(
                     Triple(R.string.play_linkedin_queens, Icons.Outlined.DeviceHub, onLinkedQueensClick),
                     Triple(R.string.play_mahjong, Icons.Outlined.ViewModule, onMahjongClick),
                     Triple(R.string.play_solitaire, Icons.Outlined.Style, onSolitaireClick),
-                    Triple(R.string.play_wordle, Icons.Outlined.TextFields, onWordleClick)
+                    Triple(R.string.play_wordle, Icons.Outlined.TextFields, onWordleClick),
+                    Triple(R.string.play_tic_tac_toe, Icons.Outlined.GridOn, onTicTacToeClick)
                 )
             ) { (labelRes, icon, onClick) ->
                 Button(
@@ -107,7 +109,8 @@ fun GamesHubPagePreview() {
             onLinkedQueensClick = {},
             onMahjongClick = {},
             onSolitaireClick = {},
-            onWordleClick = {}
+            onWordleClick = {},
+            onTicTacToeClick = {}
         )
     }
 }

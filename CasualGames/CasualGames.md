@@ -4,6 +4,11 @@ Create an app for hosting casual games
 
 ## Apps
 
+
+## Tic Tac Toe
+
+Create a TicTacToe game. The size of the grid can be changed. Add it to a page called TicTacToe. Add a button to the game to the Games page
+
 ### mahjong
 
 1. Create a page named Mahjong. Add a button to the Games page

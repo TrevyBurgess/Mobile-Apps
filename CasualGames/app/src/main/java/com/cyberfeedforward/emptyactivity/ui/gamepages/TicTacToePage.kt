@@ -23,6 +23,7 @@ import androidx.compose.material.icons.outlined.RestartAlt
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -44,6 +45,7 @@ fun TicTacToePage(
     onCellPressed: (Int) -> Unit,
     onBoardSizeDecrease: () -> Unit,
     onBoardSizeIncrease: () -> Unit,
+    onVsComputerToggle: (Boolean) -> Unit,
     onRestartGame: () -> Unit,
     onBackToGames: () -> Unit,
     modifier: Modifier = Modifier
@@ -110,6 +112,21 @@ fun TicTacToePage(
                     contentDescription = stringResource(R.string.restart_game)
                 )
             }
+        }
+
+        Row(
+            modifier = Modifier.padding(top = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            Text(
+                text = stringResource(R.string.vs_computer),
+                style = MaterialTheme.typography.titleMedium
+            )
+            Switch(
+                checked = uiState.vsComputer,
+                onCheckedChange = onVsComputerToggle
+            )
         }
 
         StatusText(uiState = uiState, modifier = Modifier.padding(top = 12.dp))
@@ -219,6 +236,7 @@ private fun TicTacToePagePreview() {
             onCellPressed = {},
             onBoardSizeDecrease = {},
             onBoardSizeIncrease = {},
+            onVsComputerToggle = {},
             onRestartGame = {},
             onBackToGames = {},
             modifier = Modifier.padding(16.dp)

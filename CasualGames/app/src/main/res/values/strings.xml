@@ -64,6 +64,8 @@
     <string name="decrease">Decrease</string>
     <string name="increase">Increase</string>
 
+    <string name="vs_computer">Vs Computer</string>
+
     <string name="x_turn">X turn</string>
     <string name="o_turn">O turn</string>
     <string name="winner_x">X wins!</string>

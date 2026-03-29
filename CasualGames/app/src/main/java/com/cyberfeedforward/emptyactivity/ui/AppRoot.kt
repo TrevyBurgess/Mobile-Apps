@@ -262,6 +262,7 @@ private fun TicTacToeRoute(
         onCellPressed = viewModel::onCellPressed,
         onBoardSizeDecrease = { viewModel.setBoardSize(uiState.boardSize - 1) },
         onBoardSizeIncrease = { viewModel.setBoardSize(uiState.boardSize + 1) },
+        onVsComputerToggle = viewModel::setVsComputer,
         onRestartGame = viewModel::restartGame,
         onBackToGames = onBackToGames,
         modifier = Modifier.padding(16.dp)

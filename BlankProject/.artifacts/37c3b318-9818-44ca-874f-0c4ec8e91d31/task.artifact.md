@@ -1,0 +1,10 @@
+- [x] Update `libs.versions.toml` with KMP and Compose Multiplatform dependencies
+- [x] Update root `build.gradle.kts` with required plugins
+- [x] Convert `app/build.gradle.kts` to Kotlin Multiplatform
+- [x] Create shared `App.kt` in `commonMain`
+- [x] Update `MainActivity.kt` in `androidMain`
+- [x] Create `main.kt` for Windows (Desktop) in `desktopMain`
+- [x] Create `MainViewController.kt` for iOS in `iosMain`
+- [x] Verify build and project structure
+- [x] Create `iosApp` directory and Swift source files
+- [x] Generate `iosApp.xcodeproj` with Gradle build integration

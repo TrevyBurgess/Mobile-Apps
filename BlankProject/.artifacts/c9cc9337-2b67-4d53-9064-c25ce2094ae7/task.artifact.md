@@ -1,0 +1,4 @@
+- [ ] Update `libs.versions.toml` with modern Compose tooling dependencies
+- [ ] Update `composeApp/build.gradle.kts` dependencies
+- [ ] Update `App.kt` with modern `Preview` import
+- [ ] Verify build and preview rendering

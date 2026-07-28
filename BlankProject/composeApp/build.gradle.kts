@@ -35,7 +35,7 @@ kotlin {
             implementation(libs.compose.material3)
             implementation(libs.compose.ui)
             implementation(libs.compose.components.resources)
-            implementation(libs.compose.components.uiToolingPreview)
+            implementation(libs.compose.preview)
         }
         
         getByName("desktopMain") {
@@ -55,4 +55,8 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
+}
+
+dependencies {
+    androidRuntimeClasspath(libs.compose.tooling)
 }

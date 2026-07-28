@@ -1,0 +1,5 @@
+- [x] Add `About` destination to `Destinations.kt`
+- [x] Create `AboutViewModel.kt`
+- [x] Create `AboutScreen.kt`
+- [x] Update `MainScreen.kt` with "About" navigation item and route
+- [x] Verify build and functionality

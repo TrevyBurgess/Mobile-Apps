@@ -23,13 +23,6 @@ In addition, I also did some manual tweaking of the UI.
 1. [Casual Games](CasualGames/CasualGames.md)
 
 
-
-
-
-
-
-
-
 ### 1. Mobile app ideas
 
 1. Casual Games
@@ -38,12 +31,7 @@ In addition, I also did some manual tweaking of the UI.
 1. Simple Card Manager
 
 
-
-
-
-
 ## 1. Simple Card Manager
-
 
 
 ### Prompt
@@ -51,15 +39,4 @@ In addition, I also did some manual tweaking of the UI.
 1. I need to use the camera when building my Android app. What is the recommended version I should use
 1. 
 
-
-
 When building mobile apps, what is the recommended version…
-
-
-
-
-
-
-
-
-
